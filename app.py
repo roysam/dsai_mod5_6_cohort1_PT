@@ -44,7 +44,7 @@ def openai():
 def openai_reply():
     q = request.form.get("q")
     response = client.chat.completions.create(
-      model="gpt-4o-mini",
+      model="gpt-4o",
       messages=[{"role": "user", "content": q}]
     )
     r = response.choices[0].message.content
