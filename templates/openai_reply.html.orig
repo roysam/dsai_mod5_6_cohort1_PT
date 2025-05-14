@@ -4,11 +4,10 @@
 </head>
 <body>
     <div class="container">
-        <h2>Gemini Reply</h2>
+        <h2>OpenAI Reply</h2>
         <p>{{r}}</p>
         <form action="/" method="post">      
             <input type="submit" value="Main">
         </form>
     </div>
 </body>
-

@@ -4,7 +4,8 @@
 </head>
 <body>
     <div class="container">
-        <h2>OpenAI Reply {{r}}</h2>
+        <h2>OpenAI Reply</h2>
+        <div class="response-text">{{r|safe}}</div>
         <form action="/" method="post">      
             <input type="submit" value="Main">
         </form>

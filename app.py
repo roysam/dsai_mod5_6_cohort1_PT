@@ -4,12 +4,14 @@ from flask import Flask, request, render_template
 import google.generativeai as genai
 from openai import OpenAI
 import os
+from markdown2 import Markdown
+
 
 # Configure Gemini
-genai.configure(api_key=os.environ["gemini_key"])
+genai.configure(api_key=os.environ["GEMINI_KEY"])
 
 # Configure OpenAI
-client = OpenAI(api_key=os.environ["openai_key"])
+client = OpenAI(api_key=os.environ["OPENAI_KEY"])
 
 # Configure Gemini model
 # model = genai.GenerativeModel("gemini-2.0-flash")
@@ -48,7 +50,11 @@ def openai_reply():
       messages=[{"role": "user", "content": q}]
     )
     r = response.choices[0].message.content
-    return(render_template("openai_reply.html",r=r))
+
+    markdowner = Markdown()
+    formatted_response = markdowner.convert(r)
+   #return(render_template("openai_reply.html",r=r))
+    return(render_template("openai_reply.html",r=formatted_response))
 
 if __name__ == "__main__":
     app.run()
