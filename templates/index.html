@@ -3,15 +3,32 @@
     <link rel="stylesheet" href="{{url_for('static',filename='styles.css')}}">
 
 </head>
+
 <body>
-    <div class="container">
-        <h2>Web Application</h2>
+  <div class="container">
+    <h2>Web Application</h2>
 
-        <form action="/main" method="post">
-          <p>Please enter your username: </p>
-          <input type = "text" name="q">
-          <input type="submit" value="Enter">
-        </form>
+    <form id="loginForm" action="/main" method="post">
+      <p>Please enter your username: </p>
+      <input type="text" name="q" id="usernameInput" />
+      <input type="submit" value="Enter" />
+    </form>
+  </div>
 
-    </div>
+  <script>
+    // Get references to the form and input elements
+    const form = document.getElementById('loginForm');
+    const input = document.getElementById('usernameInput');
+
+    // Add an event listener for the form submission
+    form.addEventListener('submit', function (event) {
+      // Check if the input is empty or contains only whitespace
+      if (input.value.trim() === '') {
+        // Prevent the form from submitting
+        event.preventDefault();
+        // Alert the user
+        alert('Please enter your username before submitting.');
+      }
+    });
+  </script>
 </body>

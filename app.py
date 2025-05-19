@@ -23,7 +23,6 @@ model = genai.GenerativeModel("gemini-2.5-flash-preview-04-17")
 # Flask
 app = Flask(__name__)
 
-first_time = 1
 
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -31,10 +30,8 @@ def index():
 
 @app.route("/main", methods=["GET", "POST"])
 def main():
-    global first_time 
-
-    if first_time == 1:
-        q = request.form.get("q")
+    q = request.form.get("q")
+    if q != None:
         t = datetime.datetime.now()
         conn = sqlite3.connect('user.db')
         c = conn.cursor()
@@ -42,7 +39,7 @@ def main():
         conn.commit()
         c.close()
         conn.close()
-        first_time=0
+        return(render_template("main.html"))
     return(render_template("main.html"))
 
 # User Log
