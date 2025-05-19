@@ -6,6 +6,9 @@ from openai import OpenAI
 import os
 from markdown2 import Markdown
 
+# sqlite
+import sqlite3
+import datetime
 
 # Configure Gemini
 genai.configure(api_key=os.environ["GEMINI_KEY"])
@@ -20,9 +23,49 @@ model = genai.GenerativeModel("gemini-2.5-flash-preview-04-17")
 # Flask
 app = Flask(__name__)
 
+first_time = 1
+
 @app.route("/", methods=["GET", "POST"])
 def index():
     return(render_template("index.html"))
+
+@app.route("/main", methods=["GET", "POST"])
+def main():
+    global first_time 
+
+    if first_time == 1:
+        q = request.form.get("q")
+        t = datetime.datetime.now()
+        conn = sqlite3.connect('user.db')
+        c = conn.cursor()
+        c.execute("insert into users(name,timestamp) values(?,?)",(q,t))
+        conn.commit()
+        c.close()
+        conn.close()
+        first_time=0
+    return(render_template("main.html"))
+
+# User Log
+@app.route("/user_log",methods=["GET","POST"])
+def user_log():
+    conn = sqlite3.connect('user.db')
+    c = conn.cursor()
+    c.execute("SELECT * FROM users")
+    users = c.fetchall()
+    c.close()
+    conn.close()
+    return render_template("user_log.html", users=users)
+
+# Delete Log
+@app.route("/delete_log",methods=["GET","POST"])
+def delete_log():
+    conn = sqlite3.connect('user.db')
+    c = conn.cursor()
+    c.execute("delete from users")
+    conn.commit()
+    c.close()
+    conn.close()
+    return render_template("delete_log.html")
 
 # Gemini
 @app.route("/gemini",methods=["GET","POST"])

@@ -1,0 +1,25 @@
+<head>
+    <meta name ="viewport" content ="width=device-width,initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static',filename='styles.css')}}">
+
+</head>
+
+<body>
+    <div class="container">
+    <h2 style="text-align:center;">User Log</h2>
+    <table>
+        {% for user in users %}
+        <tr>
+            {% for field in user %}
+            <td>{{ field }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+
+        <form action="/main" method="post">
+          <input type="submit" value="Main">
+        </form>
+
+    </div>
+</body>
