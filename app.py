@@ -23,11 +23,12 @@ model = genai.GenerativeModel("gemini-2.5-flash-preview-04-17")
 # Flask
 app = Flask(__name__)
 
-
+# index.html
 @app.route("/", methods=["GET", "POST"])
 def index():
     return(render_template("index.html"))
 
+# main.html
 @app.route("/main", methods=["GET", "POST"])
 def main():
     q = request.form.get("q")
@@ -69,6 +70,7 @@ def delete_log():
 def gemini():
     return(render_template("gemini.html"))
 
+# Gemini Reply
 @app.route("/gemini_reply",methods=["GET","POST"])
 def gemini_reply():
     q = request.form.get("q")
@@ -82,6 +84,7 @@ def gemini_reply():
 def openai():
     return(render_template("openai.html"))
 
+# OpenAI Reply
 @app.route("/openai_reply",methods=["GET","POST"])
 def openai_reply():
     q = request.form.get("q")
