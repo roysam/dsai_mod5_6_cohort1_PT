@@ -65,6 +65,11 @@ def delete_log():
     conn.close()
     return render_template("delete_log.html")
 
+# Paynow
+@app.route("/paynow",methods=["GET","POST"])
+def paynow():
+    return(render_template("paynow.html"))
+
 # Gemini
 @app.route("/gemini",methods=["GET","POST"])
 def gemini():
