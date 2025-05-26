@@ -10,6 +10,12 @@ from markdown2 import Markdown
 import sqlite3
 import datetime
 
+# prediction
+import pandas as pd
+from sklearn import linear_model
+from sklearn.metrics import mean_squared_error
+df = pd.read_csv("/workspaces/dsai_mod5_6_cohort1_PT/DBS_SingDollar.csv")
+
 # Configure Gemini
 genai.configure(api_key=os.environ["GEMINI_KEY"])
 
@@ -69,6 +75,18 @@ def delete_log():
 @app.route("/paynow",methods=["GET","POST"])
 def paynow():
     return(render_template("paynow.html"))
+
+# Prediction
+@app.route("/prediction",methods=["GET","POST"])
+def prediction():
+    return(render_template("prediction.html"))
+
+# Prediction Reply
+@app.route("/prediction_reply",methods=["GET","POST"])
+def prediction_reply():
+    q = float(request.form.get("q"))
+    print(q)  
+    return(render_template("prediction_reply.html", r=90.2 + (-50.6*q)))
 
 # Gemini
 @app.route("/gemini",methods=["GET","POST"])
