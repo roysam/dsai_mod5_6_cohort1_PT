@@ -10,12 +10,6 @@ from markdown2 import Markdown
 import sqlite3
 import datetime
 
-# prediction
-import pandas as pd
-from sklearn import linear_model
-from sklearn.metrics import mean_squared_error
-df = pd.read_csv("/workspaces/dsai_mod5_6_cohort1_PT/DBS_SingDollar.csv")
-
 # Configure Gemini
 genai.configure(api_key=os.environ["GEMINI_KEY"])
 
